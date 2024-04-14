@@ -1,24 +1,45 @@
-version: "v1" 
+version: "3.3"
 
 services:
-  nginx:
-    image: nginx-server
-    container_name: victime-nginx-server
+  # apache-server container
+  apache-server:
+    image: victime-apache-server # image name
+    container_name: apache-server 
     build:
-      # context: graphql
-      dockerfile: victime-nginx-server/Dockerfile
+      context: ./victime-apache-server # The directory where we can find the Dockerfile
+    networks:
+      DDOS-network:
+        ipv4_address: 172.20.0.2  # Specific IP address for this container
+    # restart: unless-stopped
 
-  apache:
-    image: apache-server 
-    container_name: victime-apache-server
+  # nginx-server container
+  nginx-server:
+    image: victime-nginx-server
     build:
-      dockerfile: victime-apache-server/Dockerfile
+      context: ./victime-nginx-server # The directory where we can find the Dockerfile
+    container_name: nginx-server
+    networks:
+      DDOS-network:
+        ipv4_address: 172.20.0.3  # Specific IP address for this container
+    #restart: unless-stopped
 
+  # attacker container
   attacker:
     image: attacker
     container_name: attacker-DDOS
+    tty: true  # Equivalent to `-t`, allocates a pseudo-TTY
+    stdin_open: true  # Equivalent to `-i`, keeps STDIN open
     build:
-      dockerfile: attacker/Dockerfile
-    depends_on:
-      - apache
-      - nginx
+      context: ./attacker # The directory where we can find the Dockerfile
+    networks:
+      DDOS-network:
+        ipv4_address: 172.20.0.4  # Specific IP address for this container
+    # restart: unless-stopped
+
+# Define custom network
+networks:
+  DDOS-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
