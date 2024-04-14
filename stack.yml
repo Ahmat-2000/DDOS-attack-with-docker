@@ -1,0 +1,24 @@
+version: "v1" 
+
+services:
+  nginx:
+    image: nginx-server
+    container_name: victime-nginx-server
+    build:
+      # context: graphql
+      dockerfile: victime-nginx-server/Dockerfile
+
+  apache:
+    image: apache-server 
+    container_name: victime-apache-server
+    build:
+      dockerfile: victime-apache-server/Dockerfile
+
+  attacker:
+    image: attacker
+    container_name: attacker-DDOS
+    build:
+      dockerfile: attacker/Dockerfile
+    depends_on:
+      - apache
+      - nginx

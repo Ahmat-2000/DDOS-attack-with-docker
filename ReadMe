@@ -59,3 +59,5 @@ docker exec -ti attacker-DDOS /bin/bash -c "hping3 -A -c 100000 -d 1000 -p 80 --
 
 
 
+# docker-compose
+docker-compose -f stack.yml up -d --build
