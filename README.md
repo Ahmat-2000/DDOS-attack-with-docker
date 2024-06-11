@@ -1,6 +1,7 @@
 # DDoS Attack Simulation Tool
 
-Ce projet fournit un ensemble d'outils pour simuler des attaques DDoS contre des serveurs Apache et Nginx à des fins de test et d'évaluation de la sécurité.
+Ce projet met à disposition une collection d'outils performants de simuler des attaques DDoS sur des serveurs Apache et Nginx. 
+Ces outils s'avèrent précieux pour les tests et l'évaluation de la sécurité des infrastructures web.
 
 ## Prérequis
 
